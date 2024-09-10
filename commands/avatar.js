@@ -4,13 +4,8 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
     description: 'Muestra el avatar del usuario mencionado.',
     run: async (message) => {
-        // Obtener el primer usuario mencionado
-        const target = message.mentions.users.first();
-
-        // Verificar si se mencionó un usuario
-        if (!target) {
-            return message.reply("Por favor menciona a un usuario válido.");
-        }
+        // Obtener el primer usuario mencionado o el autor del mensaje si no se menciona a nadie
+        const target = message.mentions.users.first() || message.author;
 
         try {
             // Obtener la información del miembro en el servidor
@@ -21,8 +16,8 @@ module.exports = {
 
             // Crear un embed con el avatar
             const embed = new EmbedBuilder()
-                .setColor('Blurple')
-                .setTitle(`✨ Avatar de ${member.user.tag}`)
+                .setColor('Blurple')  // Puedes cambiar a otro color si prefieres
+                .setTitle(`✨ Avatar de ${member.user.displayName} ✨`)
                 .setImage(avatar);
 
             // Enviar el embed como respuesta
